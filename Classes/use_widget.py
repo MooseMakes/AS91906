@@ -1,14 +1,13 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
-
 # Import pygame to initialise audio control
 import pygame
 pygame.mixer.init()
-
 # Sound effect asset assignment
 click_sound = pygame.mixer.Sound("Assets/click.wav")
 hover_sound = pygame.mixer.Sound("Assets/hover.mp3")
 type_sound = pygame.mixer.Sound("Assets/type.mp3")
+
 
 '''
 The UseWidget class contains functions used for determining
