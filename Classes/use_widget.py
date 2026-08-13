@@ -18,6 +18,7 @@ widgets' attributes upon user interaction
 class UseWidget:
 
     def __init__(self, pad_x, pad_y, icon, icon_hover):
+
         # Default widget padding while idle
         self.pad_x = pad_x
         self.pad_y = pad_y
@@ -29,23 +30,28 @@ class UseWidget:
         self.icon_hover = icon_hover
 
     def on_click(self, event):
+
         # Identify the event's origin and allow it to recieve keyboard inputs
         widget = event.widget
         widget.focus_set()
+
         # If clicking a widget will trigger an action...
         if hasattr(widget, "invoke"):
             # Play the click sound effect from the assets folder
             click_sound.play()
 
     def on_hover(self, event):
+
         # Identify the event's origin
         widget = event.widget
+
         # If clicking a widget will trigger an action...
         if hasattr(widget, "invoke"):
             # Play the hover sound effect from the assets folder
             hover_sound.play()
             # Allow the widget to receive keyboard inputs
             widget.configure(cursor="hand2")
+
             # Increase the padding of the widget if able
             try:
                 widget.configure(padding=(self.pad_x_hover, self.pad_y_hover))
@@ -58,12 +64,15 @@ class UseWidget:
                 widget.configure(image=widget.icon_hover)
 
     def on_leave(self, event):
+
         # Identify the event's origin
         widget = event.widget
+
         # If clicking a widget will trigger an action...
         if hasattr(widget, "invoke"):
             # Set the cursor to its default appearance
             widget.configure(cursor="")
+
             # Decrease the padding of the widget if able
             try:
                 widget.configure(padding=(self.pad_x, self.pad_y))
@@ -76,6 +85,7 @@ class UseWidget:
                 widget.configure(image=widget.icon)
 
     def on_type(self, event):
+
         # Play the type sound effect from assets folder on character entry
         if event.char:
             type_sound.play()
