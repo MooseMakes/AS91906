@@ -1,5 +1,15 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
+# Import classes from UI files to call initialisation methods
+from UI.account import Account
+from UI.authentication import Auth
+from UI.create_quiz import Create
+from UI.menu import Menu
+from UI.play_quiz import Play
+from UI.settings import Settings
+from UI.shop import Shop
+from UI.stats import Stats
+from UI.support import Support
 
 
 '''
@@ -25,10 +35,9 @@ class LoadPage:
             expand=True
         )
 
-    # TO DO
-
     def check_exit(self, trigger_button):
 
+        # Check if the user is attempting to exit the game or app
         if trigger_button == "exit":
             exit_msg = "Are you sure you want to exit the application?"
             action = self.root.destroy
@@ -36,16 +45,16 @@ class LoadPage:
 
         elif self.page == "play":
             exit_msg = "Are you sure you want to exit the current game?"
+            # Assign an anonymous function
             action = lambda: self.load_page(trigger_button)
             self.confirm_exit(exit_msg, action)
 
         else:
             self.load_page(trigger_button)
 
-    # TO DO
-
     def confirm_exit(self, action, exit_msg):
 
+        # Create the confirmation frame
         exit_frame = tk.Frame(
             self.page_frame,
             bg="#ffffc0"
@@ -55,6 +64,7 @@ class LoadPage:
             rely=0.5,
             anchor="center"
         )
+        # Display the exit message
         tk.Label(
             exit_frame,
             text=exit_msg,
@@ -64,6 +74,7 @@ class LoadPage:
             padx=9,
             pady=9
         )
+        # Create cancel button & destroy exit frame when pressed
         tk.Button(
             exit_frame,
             text="Cancel",
@@ -75,6 +86,7 @@ class LoadPage:
             padx=9,
             pady=9
         )
+        # Create confirmation button & call action when pressed
         tk.Button(
             exit_frame,
             text="Confirm",
@@ -87,36 +99,36 @@ class LoadPage:
             pady=9
         )
 
-    # TO DO
-
     def load_page(self, trigger_button):
 
+        # Destroy all non-navbar widgets and children widgets
         for widget in self.page_frame.winfo_children():
             widget.destroy()
 
+        # Load the page the user is trying to reach
         if trigger_button == "account":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Account(self.page_frame)
 
         elif trigger_button == "auth":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Auth(self.page_frame)
 
         elif trigger_button == "create":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Create(self.page_frame)
 
         elif trigger_button == "menu":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Menu(self.page_frame)
 
         elif trigger_button == "play":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Play(self.page_frame)
 
         elif trigger_button == "settings":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Settings(self.page_frame)
 
         elif trigger_button == "shop":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Shop(self.page_frame)
 
         elif trigger_button == "stats":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Stats(self.page_frame)
 
         elif trigger_button == "support":
-            pass  # PLACEHOLDER: UI/(PAGE).py CONNECTION
+            Support(self.page_frame)
