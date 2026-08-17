@@ -33,40 +33,40 @@ class NavBar:
         self.support_button = tk.Button(
             self.frame,
             image=self.support_icon,
-            command=self.trigger.check_exit("support")
+            command=lambda: self.trigger.check_exit("support")
         )
         self.stats_button = tk.Button(
             self.frame,
             image=self.stats_icon,
-            command=self.trigger.check_exit("stats")
+            command=lambda: self.trigger.check_exit("stats")
         )
         self.shop_button = tk.Button(
             self.frame,
             image=self.shop_icon,
-            command=self.trigger.check_exit("shop")
+            command=lambda: self.trigger.check_exit("shop")
         )
         self.settings_button = tk.Button(
             self.frame,
             image=self.settings_icon,
-            command=self.trigger.check_exit("settings")
+            command=lambda: self.trigger.check_exit("settings")
         )
         self.account_button = tk.Button(
             self.frame,
             image=self.account_icon,
-            command=self.trigger.check_exit("account")
+            command=lambda: self.trigger.check_exit("account")
         )
         self.exit_button = tk.Button(
             self.frame,
             image=self.exit_icon,
-            command=self.trigger.check_exit("exit")
+            command=lambda: self.trigger.check_exit("exit")
         )
         # Menu button assignment
         self.menu_button = tk.Button(
             self.frame,
             text="Tutor Tower",
-            font=("Arial", 18),
+            font=("Arial", 24),
             bg="#ffff80",
-            command=self.trigger.check_exit("menu")
+            command=lambda: self.trigger.check_exit("menu")
         )
         # Navbar frame positioning
         self.frame.pack(
@@ -76,36 +76,36 @@ class NavBar:
         # Icon button positioning
         self.support_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.stats_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.shop_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.menu_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.settings_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.account_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )
         self.exit_button.pack(
             side="left",
-            padx=9,
-            pady=9
+            padx=12,
+            pady=12
         )

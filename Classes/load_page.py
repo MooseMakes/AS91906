@@ -52,7 +52,7 @@ class LoadPage:
         else:
             self.load_page(trigger_button)
 
-    def confirm_exit(self, action, exit_msg):
+    def confirm_exit(self, exit_msg, action):
 
         # Create the confirmation frame
         exit_frame = tk.Frame(
@@ -68,7 +68,7 @@ class LoadPage:
         tk.Label(
             exit_frame,
             text=exit_msg,
-            font=("Arial", 18),
+            font=("Arial", 12),
             bg="#ffffc0"
         ).pack(
             padx=9,
@@ -110,7 +110,7 @@ class LoadPage:
             Account(self.page_frame)
 
         elif trigger_button == "auth":
-            Auth(self.page_frame)
+            Auth(self.page_frame, self.root)
 
         elif trigger_button == "create":
             Create(self.page_frame)
