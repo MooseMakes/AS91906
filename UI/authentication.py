@@ -4,7 +4,7 @@ import sqlite3
 # Import NavBar class
 from Classes.create_navbar import NavBar
 # Import SQLite database
-connect = sqlite3.connect("database.db")
+connect = sqlite3.connect("Data/database.db")
 cursor = connect.cursor()
 
 
@@ -12,8 +12,7 @@ class Auth:
 
     def __init__(self, parent, root):
 
-        # PLACEHOLDER COMMENT
-        self.page = "auth"
+        # Store root window to be referenced locally
         self.root = root
 
         # Destroy all widgets in the root window besides the page frame
@@ -28,11 +27,13 @@ class Auth:
             font=("Arial", 24),
             bg="#ffffff"
         )
+
         self.heading.place(
             relx=0.5,
             rely=0.05,
             anchor="center"
         )
+
         # Create, style, & position the current page as a subheading
         self.subheading = tk.Label(
             parent,
@@ -40,23 +41,61 @@ class Auth:
             font=("Arial", 12),
             bg="#ffffff"
         )
+
         self.subheading.place(
             relx=0.5,
             rely=0.1,
             anchor="center"
         )
+
         # Create, style, & position the authentication frame to contain details
         self.auth_frame = tk.Frame(
             parent,
             bg="#ffffc0",
-            width=960,
-            height=960
+            width=480,
+            height=540,
+            relief="solid",
+            borderwidth="1"
         )
+
         self.auth_frame.place(
             relx=0.5,
             rely=0.5,
             anchor="center"
         )
+
+        self.auth_frame.grid_propagate(False)
+
+        self.auth_frame.columnconfigure(
+            0,
+            weight=1,
+            uniform="column"
+        )
+
+        self.auth_frame.columnconfigure(
+            1,
+            weight=1,
+            uniform="column"
+        )
+
+        self.auth_frame.rowconfigure(
+            0,
+            weight=1,
+            uniform="row"
+        )
+
+        self.auth_frame.rowconfigure(
+            1,
+            weight=1,
+            uniform="row"
+        )
+
+        self.auth_frame.rowconfigure(
+            2,
+            weight=1,
+            uniform="row"
+        )
+
         # Create, style, & position the username label
         self.username_label = tk.Label(
             self.auth_frame,
@@ -64,12 +103,12 @@ class Auth:
             font=("Arial", 12),
             bg="#ffffc0"
         )
+
         self.username_label.grid(
             row=0,
-            column=0,
-            padx=12,
-            pady=96
+            column=0
         )
+
         # Create, style, & position the username entry text box
         self.username_textbox = tk.Entry(
             self.auth_frame,
@@ -80,12 +119,12 @@ class Auth:
                 "10"
             )
         )
+
         self.username_textbox.grid(
             row=0,
-            column=1,
-            padx=12,
-            pady=96
+            column=1
         )
+
         # Create, style, & position the password label
         self.password_label = tk.Label(
             self.auth_frame,
@@ -93,12 +132,12 @@ class Auth:
             font=("Arial", 12),
             bg="#ffffc0"
         )
+
         self.password_label.grid(
             row=1,
-            column=0,
-            padx=12,
-            pady=96
+            column=0
         )
+
         # Create, style, & position the username entry text box
         self.password_textbox = tk.Entry(
             self.auth_frame,
@@ -109,12 +148,12 @@ class Auth:
                 "10"
             )
         )
+
         self.password_textbox.grid(
             row=1,
-            column=1,
-            padx=12,
-            pady=96
+            column=1
         )
+
         # Create, style, & position the sign up button
         self.sign_up = tk.Button(
             self.auth_frame,
@@ -123,14 +162,16 @@ class Auth:
             bg="#ffff80",
             padx=12,
             pady=12,
-            command=lambda: self.check_error("sign_up")
+            command=lambda: self.check_error("sign_up"),
+            relief="solid",
+            borderwidth="2"
         )
+
         self.sign_up.grid(
             row=2,
-            column=0,
-            padx=12,
-            pady=12
+            column=0
         )
+
         # Create, style, & position the log in button
         self.log_in = tk.Button(
             self.auth_frame,
@@ -139,20 +180,21 @@ class Auth:
             bg="#ffff80",
             padx=12,
             pady=12,
-            command=lambda: self.check_error("log_in")
+            command=lambda: self.check_error("log_in"),
+            relief="solid",
+            borderwidth="2"
         )
+
         self.log_in.grid(
             row=2,
-            column=1,
-            padx=12,
-            pady=12
+            column=1
         )
 
     def char_limit(self, text, limit):
 
         return len(text) <= int(limit)
 
-    def check_error(self, trigger_button):
+    def check_error(self, target_page):
 
         # Store strings entered by user into text boxes
         username = self.username_textbox.get()
@@ -163,13 +205,14 @@ class Auth:
             "SELECT password FROM account WHERE username = ?",
             (username,)
         )
+
         account_exists = cursor.fetchone()
 
         # Detect errors in inputted data
         if username == "" or password == "":
             self.show_error("Please enter a username and password.")
 
-        elif trigger_button == "log_in":
+        elif target_page == "log_in":
             if not account_exists:
                 self.show_error("This username doesn't exist. "
                                 "You may create a new account with this "
@@ -183,17 +226,19 @@ class Auth:
             else:
                 self.prep_menu()
 
-        elif trigger_button == "sign_up":
+        elif target_page == "sign_up":
             if account_exists:
                 self.show_error("This username is already in use. "
                                 "You may log in to this account "
                                 "with the correct password")
+
             else:
                 # Append account details to database
                 cursor.execute(
                     "INSERT INTO account (username, password) VALUES (?, ?)",
                     (username, password)
                 )
+
                 connect.commit()
                 self.prep_menu()
 
@@ -202,12 +247,32 @@ class Auth:
         # Create the error frame
         self.error_frame = tk.Frame(
             self.auth_frame,
-            bg="#ffffc0"
+            bg="#ffffc0",
+            relief="solid",
+            borderwidth="1"
         )
+
         self.error_frame.place(
             relx=0.5,
             rely=0.5,
-            anchor="center"
+            anchor="center",
+            width=480,
+            height=540
+        )
+
+        self.error_frame.columnconfigure(
+            0,
+            weight=1
+        )
+
+        self.error_frame.rowconfigure(
+            0,
+            weight=1
+        )
+
+        self.error_frame.rowconfigure(
+            1,
+            weight=1
         )
 
         # Display the error message
@@ -215,10 +280,11 @@ class Auth:
             self.error_frame,
             text=error_msg,
             font=("Arial", 12),
-            bg="#ffffc0"
-        ).pack(
-            padx=12,
-            pady=12
+            bg="#ffffc0",
+            wraplength="432"
+        ).grid(
+            column=0,
+            row=0
         )
 
         # Create cancel button & destroy error frame when pressed
@@ -227,10 +293,14 @@ class Auth:
             text="Cancel",
             font=("Arial", 12),
             bg="#ffff80",
-            command=self.error_frame.destroy
-        ).pack(
+            command=self.error_frame.destroy,
+            relief="solid",
+            borderwidth="2",
             padx=12,
             pady=12
+        ).grid(
+            column=0,
+            row=1
         )
 
     def prep_menu(self):

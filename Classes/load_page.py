@@ -1,15 +1,5 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
-# Import classes from UI files to call initialisation methods
-from UI.account import Account
-from UI.authentication import Auth
-from UI.create_quiz import Create
-from UI.menu import Menu
-from UI.play_quiz import Play
-from UI.settings import Settings
-from UI.shop import Shop
-from UI.stats import Stats
-from UI.support import Support
 
 
 '''
@@ -35,10 +25,10 @@ class LoadPage:
             expand=True
         )
 
-    def check_exit(self, trigger_button):
+    def check_exit(self, target_page):
 
         # Check if the user is attempting to exit the game or app
-        if trigger_button == "exit":
+        if target_page == "exit":
             exit_msg = "Are you sure you want to exit the application?"
             action = self.root.destroy
             self.confirm_exit(exit_msg, action)
@@ -46,11 +36,11 @@ class LoadPage:
         elif self.page == "play":
             exit_msg = "Are you sure you want to exit the current game?"
             # Assign an anonymous function
-            action = lambda: self.load_page(trigger_button)
+            action = lambda: self.load_page(target_page)
             self.confirm_exit(exit_msg, action)
 
         else:
-            self.load_page(trigger_button)
+            self.load_page(target_page)
 
     def confirm_exit(self, exit_msg, action):
 
@@ -99,36 +89,50 @@ class LoadPage:
             pady=9
         )
 
-    def load_page(self, trigger_button):
+    def load_page(self, target_page):
+
+        # Import classes from UI files to call initialisation methods
+        from UI.account import Account
+        from UI.authentication import Auth
+        from UI.create_quiz import Create
+        from UI.menu import Menu
+        from UI.play_quiz import Play
+        from UI.settings import Settings
+        from UI.shop import Shop
+        from UI.stats import Stats
+        from UI.support import Support
 
         # Destroy all non-navbar widgets and children widgets
         for widget in self.page_frame.winfo_children():
             widget.destroy()
 
         # Load the page the user is trying to reach
-        if trigger_button == "account":
+        if target_page == "account":
             Account(self.page_frame)
 
-        elif trigger_button == "auth":
+        elif target_page == "auth":
             Auth(self.page_frame, self.root)
 
-        elif trigger_button == "create":
+        elif target_page == "create":
             Create(self.page_frame)
 
-        elif trigger_button == "menu":
+        elif target_page == "menu":
             Menu(self.page_frame)
 
-        elif trigger_button == "play":
+        elif target_page == "play":
             Play(self.page_frame)
 
-        elif trigger_button == "settings":
+        elif target_page == "settings":
             Settings(self.page_frame)
 
-        elif trigger_button == "shop":
+        elif target_page == "shop":
             Shop(self.page_frame)
 
-        elif trigger_button == "stats":
+        elif target_page == "stats":
             Stats(self.page_frame)
 
-        elif trigger_button == "support":
+        elif target_page == "support":
             Support(self.page_frame)
+
+        # Make the target page that was triggered the current page
+        self.page = target_page

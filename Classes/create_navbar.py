@@ -1,7 +1,7 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
 # Import the class containing methods used to load each page
-from load_page import LoadPage
+from Classes.load_page import LoadPage
 
 
 '''
