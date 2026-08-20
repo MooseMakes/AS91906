@@ -27,7 +27,7 @@ class NavBar:
         # Navbar frame assignment and styling
         self.frame = tk.Frame(
             root,
-            bg="#ffffc0"
+            bg="#ffffe0"
         )
         # Icon button assignment
         self.support_button = tk.Button(

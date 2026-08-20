@@ -17,17 +17,16 @@ widgets' attributes upon user interaction
 
 class UseWidget:
 
-    def __init__(self, pad_x, pad_y, icon, icon_hover):
+    def detect_input(self, widget):
 
-        # Default widget padding while idle
-        self.pad_x = pad_x
-        self.pad_y = pad_y
-        # Increased widget padding while hovered over
-        self.pad_x_hover = pad_x + 1
-        self.pad_y_hover = pad_y + 1
-        # Image asset assignment for hover enlargement
-        self.icon = icon
-        self.icon_hover = icon_hover
+        # Bind user inputs to methods
+        widget.bind("<Button-1>", self.on_click)
+        widget.bind("<Enter>", self.on_hover)
+        widget.bind("<Leave>", self.on_leave)
+
+        # Bind key presses if the widget is a text box
+        if isinstance(widget, tk.Entry):
+            widget.bind("<Key>", self.on_type)
 
     def on_click(self, event):
 
@@ -54,7 +53,9 @@ class UseWidget:
 
             # Increase the padding of the widget if able
             try:
-                widget.configure(padding=(self.pad_x_hover, self.pad_y_hover))
+                pad_x = widget.cget("padx")
+                pad_y = widget.cget("pady")
+                widget.configure(padx=pad_x + 6, pady=pad_y + 6)
 
             except tk.TclError:
                 pass
@@ -75,7 +76,9 @@ class UseWidget:
 
             # Decrease the padding of the widget if able
             try:
-                widget.configure(padding=(self.pad_x, self.pad_y))
+                pad_x = widget.cget("padx")
+                pad_y = widget.cget("pady")
+                widget.configure(padx=pad_x - 6, pady=pad_y - 6)
 
             except tk.TclError:
                 pass

@@ -1,5 +1,7 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
+# Import UseWidget class
+from Classes.use_widget import UseWidget
 
 
 '''
@@ -14,6 +16,8 @@ class LoadPage:
 
         # Root window assignment
         self.root = root
+        # Widget input control assignment
+        self.use_widget = UseWidget()
         # Assign a parent frame to the current widgets below the navbar
         self.page_frame = tk.Frame(
             root,
@@ -36,7 +40,7 @@ class LoadPage:
         elif self.page == "play":
             exit_msg = "Are you sure you want to exit the current game?"
             # Assign an anonymous function
-            action = lambda: self.load_page(target_page)
+            action = lambda: self.load_page(target_page)  # noqa: E731
             self.confirm_exit(exit_msg, action)
 
         else:
@@ -47,7 +51,7 @@ class LoadPage:
         # Create the confirmation frame
         exit_frame = tk.Frame(
             self.page_frame,
-            bg="#ffffc0"
+            bg="#ffffe0"
         )
         exit_frame.place(
             relx=0.5,
@@ -59,7 +63,7 @@ class LoadPage:
             exit_frame,
             text=exit_msg,
             font=("Arial", 12),
-            bg="#ffffc0"
+            bg="#ffffe0"
         ).pack(
             padx=9,
             pady=9
@@ -108,31 +112,31 @@ class LoadPage:
 
         # Load the page the user is trying to reach
         if target_page == "account":
-            Account(self.page_frame)
+            Account(self.page_frame, self.use_widget)
 
         elif target_page == "auth":
-            Auth(self.page_frame, self.root)
+            Auth(self.page_frame, self.root, self.use_widget)
 
         elif target_page == "create":
-            Create(self.page_frame)
+            Create(self.page_frame, self.use_widget)
 
         elif target_page == "menu":
-            Menu(self.page_frame)
+            Menu(self.page_frame, self.use_widget)
 
         elif target_page == "play":
-            Play(self.page_frame)
+            Play(self.page_frame, self.use_widget)
 
         elif target_page == "settings":
-            Settings(self.page_frame)
+            Settings(self.page_frame, self.use_widget)
 
         elif target_page == "shop":
-            Shop(self.page_frame)
+            Shop(self.page_frame, self.use_widget)
 
         elif target_page == "stats":
-            Stats(self.page_frame)
+            Stats(self.page_frame, self.use_widget)
 
         elif target_page == "support":
-            Support(self.page_frame)
+            Support(self.page_frame, self.use_widget)
 
         # Make the target page that was triggered the current page
         self.page = target_page
