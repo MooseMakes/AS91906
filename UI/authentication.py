@@ -10,12 +10,14 @@ cursor = connect.cursor()
 
 class Auth:
 
-    def __init__(self, parent, root, use_widget):
+    def __init__(self, parent, root, use_widget, trigger):
 
         # Store root window to be referenced locally
         self.root = root
         # Store widget input logic to be referenced locally
         self.use_widget = use_widget
+        # Assign the trigger page as an object to reference it locally
+        self.trigger = trigger
 
         # Destroy all widgets in the root window besides the page frame
         for widget in root.winfo_children():
@@ -321,5 +323,5 @@ class Auth:
     def prep_menu(self):
 
         # Re-create the navbar & load the menu page
-        self.navbar = NavBar(self.root)
+        self.navbar = NavBar(self.root, self.use_widget, self.trigger)
         self.navbar.trigger.load_page("menu")

@@ -1,7 +1,5 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
-# Import UseWidget class
-from Classes.use_widget import UseWidget
 
 
 '''
@@ -12,17 +10,19 @@ displayed across pages.
 
 class LoadPage:
 
-    def __init__(self, root):
+    def __init__(self, root, use_widget):
 
         # Root window assignment
         self.root = root
         # Widget input control assignment
-        self.use_widget = UseWidget()
+        self.use_widget = use_widget
+
         # Assign a parent frame to the current widgets below the navbar
         self.page_frame = tk.Frame(
             root,
             bg="#ffffff"
         )
+
         # Position the frame to fill the entire non-navbar window space
         self.page_frame.pack(
             fill="both",
@@ -53,11 +53,13 @@ class LoadPage:
             self.page_frame,
             bg="#ffffe0"
         )
+
         exit_frame.place(
             relx=0.5,
             rely=0.5,
             anchor="center"
         )
+
         # Display the exit message
         tk.Label(
             exit_frame,
@@ -68,6 +70,7 @@ class LoadPage:
             padx=9,
             pady=9
         )
+
         # Create cancel button & destroy exit frame when pressed
         tk.Button(
             exit_frame,
@@ -80,6 +83,7 @@ class LoadPage:
             padx=9,
             pady=9
         )
+
         # Create confirmation button & call action when pressed
         tk.Button(
             exit_frame,
@@ -115,7 +119,7 @@ class LoadPage:
             Account(self.page_frame, self.use_widget)
 
         elif target_page == "auth":
-            Auth(self.page_frame, self.root, self.use_widget)
+            Auth(self.page_frame, self.root, self.use_widget, self)
 
         elif target_page == "create":
             Create(self.page_frame, self.use_widget)

@@ -1,5 +1,7 @@
 # Import tkinter to initialise graphics control
 import tkinter as tk
+# Import Python Imaging Library
+from PIL import ImageTk
 # Import pygame to initialise audio control
 import pygame
 pygame.mixer.init()
@@ -51,18 +53,27 @@ class UseWidget:
             # Allow the widget to receive keyboard inputs
             widget.configure(cursor="hand2")
 
-            # Increase the padding of the widget if able
-            try:
-                pad_x = widget.cget("padx")
-                pad_y = widget.cget("pady")
-                widget.configure(padx=pad_x + 6, pady=pad_y + 6)
+            # If possible, increase the size of the icon
+            if hasattr(widget, "pillow"):
+                widget.icon_hover = ImageTk.PhotoImage(
+                    widget.pillow.resize((108, 108))
+                )
 
-            except tk.TclError:
-                pass
-
-            # Replace the image with a larger version if possible
-            if hasattr(widget, "icon_hover"):
                 widget.configure(image=widget.icon_hover)
+
+            # If possible, increase the padding of the button
+            else:
+                try:
+                    pad_x = widget.cget("padx")
+                    pad_y = widget.cget("pady")
+
+                    widget.configure(
+                        padx=pad_x + 6,
+                        pady=pad_y + 6
+                    )
+
+                except tk.TclError:
+                    pass
 
     def on_leave(self, event):
 
@@ -74,18 +85,19 @@ class UseWidget:
             # Set the cursor to its default appearance
             widget.configure(cursor="")
 
-            # Decrease the padding of the widget if able
-            try:
-                pad_x = widget.cget("padx")
-                pad_y = widget.cget("pady")
-                widget.configure(padx=pad_x - 6, pady=pad_y - 6)
-
-            except tk.TclError:
-                pass
-
-            # If possible, replace the image with a larger version
+            # If possible, decrease the size of the icon
             if hasattr(widget, "icon"):
                 widget.configure(image=widget.icon)
+
+            # If possible, decrease the padding of the button
+            else:
+                try:
+                    pad_x = widget.cget("padx")
+                    pad_y = widget.cget("pady")
+                    widget.configure(padx=pad_x - 6, pady=pad_y - 6)
+
+                except tk.TclError:
+                    pass
 
     def on_type(self, event):
 
