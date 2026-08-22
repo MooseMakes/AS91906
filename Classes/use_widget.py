@@ -94,7 +94,10 @@ class UseWidget:
                 try:
                     pad_x = widget.cget("padx")
                     pad_y = widget.cget("pady")
-                    widget.configure(padx=pad_x - 6, pady=pad_y - 6)
+                    widget.configure(
+                        padx=pad_x - 6,
+                        pady=pad_y - 6
+                    )
 
                 except tk.TclError:
                     pass

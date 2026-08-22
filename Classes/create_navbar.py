@@ -110,14 +110,12 @@ class NavBar:
         self.menu_button = tk.Button(
             self.frame,
             text="Tutor Tower",
-            font=("Arial", 24),
+            font=("Arial", 32),
             bg="#ffff80",
             command=lambda: self.trigger.check_exit("menu"),
             relief="solid",
             borderwidth=2,
-            padx=48,
-            pady=12,
-            width=27
+            width=24
         )
 
         # Navbar frame positioning

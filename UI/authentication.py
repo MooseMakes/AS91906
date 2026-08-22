@@ -169,7 +169,6 @@ class Auth:
             font=("Arial", 24),
             bg="#ffff80",
             padx=48,
-            width=6,
             command=lambda: self.check_error("sign_up"),
             relief="solid",
             borderwidth=2
@@ -187,7 +186,6 @@ class Auth:
             font=("Arial", 24),
             bg="#ffff80",
             padx=48,
-            width=6,
             command=lambda: self.check_error("log_in"),
             relief="solid",
             borderwidth=2
@@ -308,9 +306,7 @@ class Auth:
             command=self.error_frame.destroy,
             relief="solid",
             borderwidth=2,
-            padx=48,
-            pady=12,
-            width=6
+            padx=48
         ).grid(
             column=0,
             row=1

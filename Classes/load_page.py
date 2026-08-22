@@ -125,7 +125,7 @@ class LoadPage:
             Create(self.page_frame, self.use_widget)
 
         elif target_page == "menu":
-            Menu(self.page_frame, self.use_widget)
+            Menu(self.page_frame, self.root, self.use_widget, self)
 
         elif target_page == "play":
             Play(self.page_frame, self.use_widget)
